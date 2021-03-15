@@ -2,7 +2,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: spring-boot
-  namespace: template-test
   labels:
     app: spring-boot
     app.kubernetes.io/component: spring-boot
