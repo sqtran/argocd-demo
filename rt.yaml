@@ -16,3 +16,8 @@ spec:
   port:
     targetPort: 8080-tcp
   wildcardPolicy: None
+status:
+  ingress:
+    - conditions:
+        - status: 'True'
+          type: Admitted
