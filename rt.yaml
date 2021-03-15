@@ -1,0 +1,19 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: spring-boot
+  namespace: template-test
+  labels:
+    app: spring-boot
+    app.kubernetes.io/component: spring-boot
+    app.kubernetes.io/instance: spring-boot
+    app.kubernetes.io/part-of: java-demo
+    app.openshift.io/runtime-version: latest
+spec:
+  to:
+    kind: Service
+    name: spring-boot
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  wildcardPolicy: None
