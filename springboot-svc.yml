@@ -27,5 +27,3 @@ spec:
     deploymentconfig: spring-boot
   type: ClusterIP
   sessionAffinity: None
-status:
-  loadBalancer: {}

@@ -6,8 +6,8 @@ metadata:
     app: hello-quarkus
     app.kubernetes.io/component: hello-quarkus
     app.kubernetes.io/instance: hello-quarkus
-    app.kubernetes.io/part-of: java-demo
-    app.openshift.io/runtime-version: latest
+    app.kubernetes.io/name: hello-quarkus
+    app.kubernetes.io/part-of: hello-quarkus-app
 spec:
   ports:
     - name: 8080-tcp
@@ -20,8 +20,5 @@ spec:
       targetPort: 8443
   selector:
     app: hello-quarkus
-    deploymentconfig: hello-quarkus
   type: ClusterIP
   sessionAffinity: None
-status:
-  loadBalancer: {}

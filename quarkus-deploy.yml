@@ -1,0 +1,60 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: hello-quarkus
+  labels:
+    app: hello-quarkus
+    app.kubernetes.io/component: hello-quarkus
+    app.kubernetes.io/instance: hello-quarkus
+    app.kubernetes.io/part-of: java-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-quarkus
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: hello-quarkus
+        deployment: hello-quarkus
+    spec:
+      containers:
+        - readinessProbe:
+            httpGet:
+              path: /q/health/ready
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: hello-quarkus
+          livenessProbe:
+            httpGet:
+              path: /q/health/live
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          terminationMessagePolicy: File
+          image: 'quay.io/stran/hello-quarkus:3.0.3-micro'
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
