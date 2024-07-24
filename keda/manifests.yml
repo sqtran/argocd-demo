@@ -23,7 +23,6 @@ spec:
   name: openshift-custom-metrics-autoscaler-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: custom-metrics-autoscaler.v2.11.2-322
 ---
 
 apiVersion: operators.coreos.com/v1alpha2
@@ -56,3 +55,13 @@ spec:
     logEncoder: console
     logLevel: info
   watchNamespace: ''
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cluster-monitoring-config
+  namespace: openshift-monitoring
+data:
+  config.yaml: |
+    enableUserWorkload: true
